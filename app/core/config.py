@@ -38,6 +38,7 @@ class Settings(BaseSettings):
     retrieval_top_k: int = Field(default=10, gt=0)
     final_top_k: int = Field(default=5, ge=0)
     max_agent_attempts: int = Field(default=3)
+    database_url: str = "postgresql+psycopg://rag_user:change_me@localhost:5432/agentic_rag"
 
 
 @lru_cache(maxsize=1)

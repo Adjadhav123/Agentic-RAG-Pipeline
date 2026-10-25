@@ -116,6 +116,7 @@ class DocumentChunk:
 
         metadata.update(
             {
+                "chunk_id": self.chunk_id,
                 "document_id": self.document_id,
                 "tenant_id": self.tenant_id,
                 "source": self.source,

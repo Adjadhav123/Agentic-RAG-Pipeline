@@ -16,7 +16,7 @@ class AgentState(TypedDict, total=False):
     evidence_sufficient: bool 
     evidence_reason: str 
 
-    anweer: str 
+    answer: str 
     citation_ids: list[str]
     error_code: str | None 
     request_id: str 

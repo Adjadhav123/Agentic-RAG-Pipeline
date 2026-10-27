@@ -1,9 +1,6 @@
-from multiprocessing.sharedctypes import Value
-from asyncio import streams
-from pygments.util import terminal_encoding
 from sqlalchemy import select
 
-from app.infrastructure.database import IngestionStatusORM, SessionLocal
+from app.infrastructure.database import DocumentMetadataORM, IngestionStatusORM, SessionLocal
 
 class SQLMetadataRepositories:
     ALLOWED_STATUSES = {
@@ -20,11 +17,9 @@ class SQLMetadataRepositories:
         tenant_id: str,
         document_id: str
     ) -> int | None :
-        from app.infrastructure.database import DocumentMetadataORM
-
         with SessionLocal() as session:
             return session.scalar(
-                select(DocumentMetadataORM).where(
+                select(DocumentMetadataORM.version).where(
                     DocumentMetadataORM.tenant_id == tenant_id,
                     DocumentMetadataORM.document_id == document_id,
                 )

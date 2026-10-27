@@ -1,6 +1,3 @@
-from dis import disco
-from asyncio import streams
-from asyncio import streams
 from typing import Any, Literal
 from dataclasses import dataclass, field
 
@@ -8,7 +5,7 @@ from dataclasses import dataclass, field
 RetrievalMethod = Literal[
     "bm25",
     "vector",
-    "hybird",
+    "hybrid",
     "sql"
 ]
 
@@ -34,13 +31,13 @@ class RetrievalResult:
             "method": self.method,
             "rank": self.rank,
             "score": self.score,
-            "metatadata": self.metadata
+            "metadata": self.metadata
         }
 
 
 @dataclass(frozen=True, slots=True)
 class SearchRequest:
-    chunk_id: str
+    query: str
     tenant_id: str 
     top_k: int = 10 
     filters: dict[str, Any] = field(default_factory=dict)
@@ -49,7 +46,7 @@ class SearchRequest:
 @dataclass(frozen=True, slots=True)
 class RankedChunk:
     chunk: RetrievalResult 
-    fused_score: str 
+    fused_score: float 
     total_score: int 
 
     

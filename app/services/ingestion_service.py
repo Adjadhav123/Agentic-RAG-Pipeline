@@ -110,7 +110,7 @@ class IngestionService:
             )
 
             logger.info(
-                f"Document indexed: tenant={tenant_id}, document={document.document_id}",
+                "Document indexed: tenant=%s, document=%s, chunks=%d, version=%d",
                 tenant_id,
                 document.document_id,
                 len(chunks),
@@ -122,7 +122,7 @@ class IngestionService:
                 "status": "indexed",
                 "chunks_indexed": len(chunks),
                 "unchanged": False,
-                "messaged": "Document ingested sucessfully."
+                "message": "Document ingested successfully."
             }
 
         except Exception as e:
@@ -139,11 +139,11 @@ class IngestionService:
                     status="failed",
                     error_message=str(e),
                 )
-            except Exception as e:
+            except Exception:
                 logger.exception(
-                    "Failed to mark ingestion as failed",
-                    tenant_id=tenant_id,
-                    document_id=document.document_id
+                    "Failed to mark ingestion as failed: tenant=%s, document=%s",
+                    tenant_id,
+                    document.document_id
                 )
 
             raise

@@ -1,6 +1,4 @@
-from pydantic.functional_validators import FieldValidatorModes
-from asyncio import SelectorEventLoop
-from  functools import lru_cache 
+from functools import lru_cache 
 from pathlib import Path 
 
 from pydantic import Field, SecretStr
@@ -8,24 +6,24 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
-    model_config=SettingsConfigDict(
+    model_config = SettingsConfigDict(
         env_file=".env",
         env_file_encoding="utf-8",
         case_sensitive=False,
         extra="ignore"
     )
 
-    app_name: str = "Agentic ARP API"
+    app_name: str = "Agentic RAG API"
     app_env: str = "development"
-    dubug: bool = False
+    debug: bool = False
     log_level: str = "INFO"
 
-    app_v1_prefix: str = "/app/v1"
-    groq_api_key: SecretStr = Field(default=SecretStr("GROQ_API_KEY"))
-    groq_model: str = "GROQ_MODEL"
+    api_v1_prefix: str = "/api/v1"
+    groq_api_key: SecretStr = Field(default=SecretStr(""))
+    groq_model: str = "llama-3.3-70b-versatile"
 
-    embedding_model: str = "EMBEDDING_MODEL"
-    reranker_model: str = "RERANKER_MODEL"
+    embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
+    reranker_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2"
 
     enable_reranker: bool = False
     documents_dir:Path = "data/documents"

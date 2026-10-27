@@ -1,4 +1,3 @@
-from attr.validators import min_len
 from pydantic import BaseModel, ConfigDict, Field
 
 class CitationResponse(BaseModel):

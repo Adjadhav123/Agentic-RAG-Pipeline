@@ -32,7 +32,7 @@ def split_document(document: DocumentRecord) -> list[DocumentChunk]:
 
     settings = get_settings()
 
-    content = normalize_text()
+    content = normalize_text(document.content)
 
     if not content:
         raise ValueError("Document is empty after text normalization")

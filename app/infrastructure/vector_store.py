@@ -1,10 +1,3 @@
-from sys import maxsize
-from langchain_core.callbacks import streaming_stdout
-from pydantic.v1 import EnumError
-from multiprocessing.sharedctypes import Value
-from langchain_core.tracers import log_stream
-from sqlalchemy.sql.functions import ReturnTypeFromArgs
-from sqlalchemy.sql.util import ClauseAdapter
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
@@ -128,7 +121,6 @@ class ChromaVectorRepository:
 
     def delete_document_chunks(
         self,
-        *,
         tenant_id: str,
         document_id: str,
     ) -> None:
@@ -142,10 +134,10 @@ class ChromaVectorRepository:
             }
         )
 
-    def health_check(self)->bool:
+    def health_check(self) -> bool:
         try:
-            if self._store.get(limit=1):
-                return True
+            self._store.get(limit=1)
+            return True
         except Exception:
             return False
 

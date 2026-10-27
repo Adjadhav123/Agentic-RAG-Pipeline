@@ -52,7 +52,7 @@ class DocumentMetadataORM(Base):
         nullable=False
     )
 
-    version: Mapped[str] = mapped_column(
+    version: Mapped[int] = mapped_column(
         Integer,
         nullable=False,
         default=1
@@ -61,7 +61,7 @@ class DocumentMetadataORM(Base):
     metadata_json: Mapped[str] = mapped_column(
         Text,
         nullable=False,
-        default={}
+        default="{}"
     )
 
     created_at: Mapped[object] = mapped_column(
@@ -102,17 +102,20 @@ class IngestionStatusORM(Base):
     )
 
 
-connect_args = (
-    {"check_same_thread": False}
-    if settings.database_url.startswith("sqlite") else {}
-)
+is_sqlite = settings.database_url.startswith("sqlite")
+connect_args = {"check_same_thread": False} if is_sqlite else {}
+
+engine_kwargs: dict = {
+    "pool_pre_ping": True,
+    "connect_args": connect_args,
+}
+if not is_sqlite:
+    engine_kwargs["pool_size"] = 5
+    engine_kwargs["max_overflow"] = 10
 
 engine = create_engine(
     settings.database_url,
-    pool_pre_ping=True,
-    pool_size=5,
-    max_overflow=10,
-    connect_args=connect_args
+    **engine_kwargs
 )
 
 SessionLocal = sessionmaker(

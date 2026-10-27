@@ -1,6 +1,6 @@
 from typing import Protocol
 
-class MetadatRepository(Protocol):
+class MetadataRepository(Protocol):
     def get_document_version(
         self,
         *,

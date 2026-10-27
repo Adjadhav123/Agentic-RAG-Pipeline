@@ -2,10 +2,9 @@ import logging
 import logging.config
 
 
-def configure_logging(level: str="INFO")->None:
+def configure_logging(level: str = "INFO") -> logging.Logger:
     logging.config.dictConfig(
         {
-            
             "version": 1,
             "disable_existing_loggers": False,
             "formatters": {
@@ -28,5 +27,5 @@ def configure_logging(level: str="INFO")->None:
                 "handlers": ["console"],
             },
         }
-
     )
+    return logging.getLogger("agentic_rag")

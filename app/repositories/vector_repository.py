@@ -17,7 +17,7 @@ class VectorRepositories(Protocol):
     ) -> list[RetrievalResult]:
         ...
 
-    def delete_chunks(
+    def delete_document_chunks(
         self,
         tenant_id:str,
         document_id: str,

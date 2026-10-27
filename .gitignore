@@ -11,3 +11,4 @@ storage/
 dist/
 build/
 *.log
+*.db

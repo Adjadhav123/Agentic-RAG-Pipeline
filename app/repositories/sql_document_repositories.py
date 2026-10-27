@@ -1,5 +1,3 @@
-from multiprocessing.sharedctypes import Value
-from asyncio import streams
 import json 
 from datetime import datetime
 
@@ -63,11 +61,11 @@ class SQLDocumentRepository:
     
     def delete_document(
         self,
-        document_id: str,
         tenant_id: str,
+        document_id: str,
     ) -> None:
         with SessionLocal.begin() as session:
-            row = session.execute(
+            session.execute(
                 delete(DocumentMetadataORM).where(
                     DocumentMetadataORM.document_id == document_id,
                     DocumentMetadataORM.tenant_id == tenant_id
